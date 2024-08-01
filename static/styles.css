@@ -1,0 +1,57 @@
+/* Reset some default styles */
+body, h1, p, button {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f8f8f8; /* Light gray background */
+    font-family: Arial, sans-serif;
+    color: #333; /* Dark text for contrast */
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    color: #ff007f; /* Pink color for the header */
+}
+
+.container {
+    display: inline-block;
+    background-color: #fff; /* White background for the container */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="file"] {
+    display: block;
+    margin: 0 auto 20px;
+}
+
+button {
+    background-color: #000; /* Black background for the button */
+    color: #fff; /* White text for the button */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #333; /* Darker black on hover */
+}
+
+#result {
+    margin-top: 20px;
+    background-color: #fff; /* White background for the result */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#error {
+    color: red; /* Red color for error messages */
+}
+
