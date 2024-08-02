@@ -1,46 +1,38 @@
-async function predictImage() {
-    const fileInput = document.getElementById('imageInput');
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadForm = document.getElementById('uploadForm');
     const resultDiv = document.getElementById('result');
-    const labelP = document.getElementById('label');
-    const confidenceP = document.getElementById('confidence');
-    const errorDiv = document.getElementById('error');
-    
-    resultDiv.style.display = 'none';
-    errorDiv.style.display = 'none';
 
-    if (fileInput.files.length === 0) {
-        errorDiv.innerText = 'Please select an image file.';
-        errorDiv.style.display = 'block';
-        return;
-    }
+    uploadForm.onsubmit = async function(e) {
+        e.preventDefault();
 
-    const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
+        const formData = new FormData(this);
+        const fileInput = uploadForm.querySelector('input[type="file"]');
+        const submitButton = uploadForm.querySelector('button');
 
-    try {
-        const response = await fetch('/predict', { // Use relative path for Heroku deployment
-            method: 'POST',
-            body: formData
-        });
+        // Disable the form and show a loading message
+        fileInput.disabled = true;
+        submitButton.disabled = true;
+        submitButton.innerText = 'Uploading...';
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
+        try {
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+
+            // Display the result
+            resultDiv.innerText = JSON.stringify(result, null, 2);
+            resultDiv.style.display = 'block';
+        } catch (error) {
+            console.error('Error:', error);
+            resultDiv.innerText = 'An error occurred while processing your request. Please try again.';
+            resultDiv.style.display = 'block';
+        } finally {
+            // Re-enable the form and reset the button text
+            fileInput.disabled = false;
+            submitButton.disabled = false;
+            submitButton.innerText = 'Upload and Classify';
         }
-
-        const result = await response.json();
-
-        if (result.error) {
-            errorDiv.innerText = result.error;
-            errorDiv.style.display = 'block';
-            return;
-        }
-
-        resultDiv.style.display = 'block';
-        labelP.innerText = `Label: ${result.label}`;
-        confidenceP.innerText = `Confidence: ${(result.confidences[0].confidence * 100).toFixed(2)}%`;
-    } catch (error) {
-        errorDiv.innerText = `An error occurred while predicting the image: ${error.message}`;
-        errorDiv.style.display = 'block';
-    }
-}
+    };
+});
