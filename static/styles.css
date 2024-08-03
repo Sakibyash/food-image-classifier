@@ -1,64 +1,37 @@
 body {
-    background-color: #000;
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
+    font-family: Arial, sans-serif;
+    margin: 20px;
     text-align: center;
+    background-color: #f8d7da; /* Light pink background */
+    color: #000; /* Black text */
 }
 
 h1 {
-    color: #ff69b4;
+    color: #c2185b; /* Dark pink */
 }
 
-.box {
-    background-color: #ff69b4;
+.container {
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    margin: 0 auto;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-input[type="file"] {
-    margin-bottom: 10px;
+    border: 2px solid #c2185b; /* Dark pink border */
+    border-radius: 5px;
+    max-width: 500px;
+    background-color: #fff; /* White background */
 }
 
 button {
-    background-color: #000;
-    color: #ff69b4;
-    border: 1px solid #ff69b4;
+    background-color: #c2185b; /* Dark pink */
+    color: #fff; /* White text */
     padding: 10px 20px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
 }
 
 button:hover {
-    background-color: #ff69b4;
-    color: #000;
+    background-color: #b01246; /* Slightly darker pink */
 }
 
-#result {
-    margin-top: 20px;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    background-color: #000;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ff69b4;
-    word-wrap: break-word;
+#error {
+    color: red;
 }
