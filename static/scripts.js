@@ -1,38 +1,61 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const uploadForm = document.getElementById('uploadForm');
+async function predictImage() {
+    const imageInput = document.getElementById('imageInput');
     const resultDiv = document.getElementById('result');
+    const errorDiv = document.getElementById('error');
+    const labelElement = document.getElementById('label');
+    const confidenceElement = document.getElementById('confidence');
 
-    uploadForm.onsubmit = async function(e) {
-        e.preventDefault();
+    if (imageInput.files.length === 0) {
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = 'Please select an image first.';
+        resultDiv.style.display = 'none';
+        return;
+    }
 
-        const formData = new FormData(this);
-        const fileInput = uploadForm.querySelector('input[type="file"]');
-        const submitButton = uploadForm.querySelector('button');
+    const file = imageInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
 
-        // Disable the form and show a loading message
-        fileInput.disabled = true;
-        submitButton.disabled = true;
-        submitButton.innerText = 'Uploading...';
+    try {
+        const response = await fetch('https://api-inference.huggingface.co/models/Sakibrumu/Food_Image_Classification', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer YOUR_HUGGING_FACE_API_KEY'
+            },
+            body: formData
+        });
 
-        try {
-            const response = await fetch('/predict', {
-                method: 'POST',
-                body: formData
-            });
-            const result = await response.json();
-
-            // Display the result
-            resultDiv.innerText = JSON.stringify(result, null, 2);
-            resultDiv.style.display = 'block';
-        } catch (error) {
-            console.error('Error:', error);
-            resultDiv.innerText = 'An error occurred while processing your request. Please try again.';
-            resultDiv.style.display = 'block';
-        } finally {
-            // Re-enable the form and reset the button text
-            fileInput.disabled = false;
-            submitButton.disabled = false;
-            submitButton.innerText = 'Upload and Classify';
+        if (!response.ok) {
+            throw new Error('Prediction request failed');
         }
-    };
-});
+
+        const result = await response.json();
+        const label = result.label;
+        const confidence = result.confidence;
+
+        labelElement.textContent = `Label: ${label}`;
+        confidenceElement.textContent = `Confidence: ${confidence}`;
+
+        // Fetch and display dish details
+        const dishDetailsResponse = await fetch('/path/to/dish_detail.json');
+        const dishDetails = await dishDetailsResponse.json();
+
+        if (dishDetails[label]) {
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = `Description: ${dishDetails[label].description}`;
+
+            const ingredientsElement = document.createElement('p');
+            ingredientsElement.textContent = `Ingredients: ${dishDetails[label].ingredients.join(', ')}`;
+
+            resultDiv.appendChild(descriptionElement);
+            resultDiv.appendChild(ingredientsElement);
+        }
+
+        resultDiv.style.display = 'block';
+        errorDiv.style.display = 'none';
+    } catch (error) {
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = `Error: ${error.message}`;
+        resultDiv.style.display = 'none';
+    }
+}
