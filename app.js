@@ -7,7 +7,7 @@ async function predict() {
     }
 
     const formData = new FormData();
-    formData.append('file', file); // Ensure this matches the expected field name by the API
+    formData.append('image', file); // Update the key based on API documentation
 
     try {
         // Use your Hugging Face Space API endpoint
@@ -17,10 +17,11 @@ async function predict() {
             }
         });
 
+        // Check the API response format and update accordingly
         const label = response.data.label; // Adjust based on the actual API response
         document.getElementById('result').innerText = `Prediction: ${label}`;
 
-        // Fetch dish details
+        // Fetch dish details from dish_details.json
         const detailsResponse = await fetch('dish_details.json');
         const detailsData = await detailsResponse.json();
         const dishDetails = detailsData[label]; // Adjust based on how your JSON is structured
