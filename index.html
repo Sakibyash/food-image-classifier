@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Image Classifier</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Food Image Classifier</h1>
     <div class="container">
-        <input type="file" id="imageInput" accept="image/*">
-        <button onclick="predictImage()">Predict</button>
+        <div class="left-side">
+            <h1>Food Image Classifier</h1>
+            <input type="file" id="imageUpload" accept="image/*" onchange="previewImage()">
+            <button onclick="predict()">Predict</button>
+            <div id="result"></div>
+            <div id="imagePreview"></div>
+        </div>
+        <div class="right-side" id="dish-details-box">
+            <h2>Dish Details</h2>
+            <div id="dish-details"></div>
+        </div>
     </div>
-    <div id="result" class="container" style="display: none;">
-        <h2>Prediction Result:</h2>
-        <p id="label"></p>
-        <p id="confidence"></p>
-    </div>
-    <div id="error" class="container" style="display: none;"></div>
 
-    <script src="/static/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
