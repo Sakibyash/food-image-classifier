@@ -1,0 +1,55 @@
+body {
+    background-color: black;
+    color: pink;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    border: 2px solid pink;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #222;
+}
+
+.left-side {
+    margin-right: 20px;
+}
+
+button {
+    background-color: pink;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff99cc;
+}
+
+#result {
+    margin-top: 20px;
+}
+
+#imagePreview {
+    margin-top: 20px;
+}
+
+.right-side {
+    border-left: 2px solid pink;
+    padding-left: 20px;
+    width: 300px;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+#dish-details-box {
+    margin-top: 20px;
+}
