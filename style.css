@@ -34,22 +34,32 @@ button:hover {
     background-color: #ff99cc;
 }
 
-#result {
+#imagePreview, #result {
     margin-top: 20px;
 }
 
-#imagePreview {
-    margin-top: 20px;
-}
-
-.right-side {
-    border-left: 2px solid pink;
-    padding-left: 20px;
-    width: 300px;
-    overflow-y: auto;
-    max-height: 300px;
+.box {
+    border: 1px solid pink;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #333;
 }
 
 #dish-details-box {
     margin-top: 20px;
+    border: 1px solid pink;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #333;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: pink;
+}
+
+img {
+    max-width: 100%;
+    max-height: 300px;
 }
