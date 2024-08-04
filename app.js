@@ -7,7 +7,7 @@ async function predict() {
     }
 
     const formData = new FormData();
-    formData.append('file', file); // Adjust the key if necessary
+    formData.append('file', file); // Ensure 'file' is the correct key
 
     try {
         // Send the image to the Hugging Face Space API for prediction
@@ -28,7 +28,6 @@ async function predict() {
             if (data.label) {
                 document.getElementById('result').innerText = `Prediction: ${data.label}`;
                 eventSource.close(); // Close the event source when done
-                displayDishDetails(data.label); // Fetch and display dish details
             }
         };
 
@@ -63,26 +62,4 @@ function previewImage() {
         imagePreviewDiv.appendChild(imgElement);
     };
     reader.readAsDataURL(file);
-}
-
-async function displayDishDetails(label) {
-    try {
-        const response = await fetch('dish_details.json');
-        const data = await response.json();
-        const dishDetails = data[label];
-
-        if (dishDetails) {
-            const detailsDiv = document.getElementById('dish-details');
-            detailsDiv.innerHTML = `
-                <h2>Dish Details</h2>
-                <p><strong>Name:</strong> ${dishDetails.label}</p>
-                <p><strong>Description:</strong> ${dishDetails.description}</p>
-            `;
-        } else {
-            document.getElementById('dish-details').innerText = 'No details available for this dish.';
-        }
-    } catch (error) {
-        console.error('Error fetching dish details:', error);
-        document.getElementById('dish-details').innerText = 'Error fetching dish details';
-    }
 }
