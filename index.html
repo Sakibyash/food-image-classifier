@@ -6,17 +6,18 @@
     <title>Food Image Classifier</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="app.js" defer></script>
+    <script defer src="app.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="left-side">
-            <input type="file" id="imageUpload" onchange="previewImage()">
+            <h1>Food Image Classifier</h1>
+            <input type="file" id="imageUpload" accept="image/*" onchange="previewImage()">
             <button onclick="predict()">Predict</button>
-            <div id="result"></div>
-            <div id="imagePreview"></div>
+            <div id="imagePreview" class="box"></div>
+            <div id="result" class="box"></div>
         </div>
-        <div class="right-side" id="dish-details"></div>
+        <div id="dish-details-box" class="right-side"></div>
     </div>
 </body>
 </html>
